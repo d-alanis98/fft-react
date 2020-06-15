@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, Fragment } from 'react';
+//Componentes
+import Alert from './Components/Alerts/Alert';
+import Routes from './Routes';
+import Navbar from './Components/Layout/Navigation/Navbar';
+//HOCS
+import withContextProvider from './Context/InputFunction/HOC/withContextProvider';
+import withAlertProvider from './Components/Alerts/HOC/withAlertProvider';
+//Estilos
 import './App.css';
+import withConvolutionProvider from './Context/Convolution/HOC/withConvolutionProvider';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+
+const App = () => {
+    return(
+        <Fragment>
+            <Navbar />
+            <Alert />
+            <Routes />
+        </Fragment>
+    )
 }
 
-export default App;
+export default withAlertProvider(withContextProvider(withConvolutionProvider(App)));

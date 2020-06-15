@@ -1,0 +1,5 @@
+.Chart-container{
+    position: relative;
+    box-sizing: border-box;
+    max-height: 300px;
+}
