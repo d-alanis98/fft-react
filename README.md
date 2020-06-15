@@ -1,4 +1,6 @@
 # fft-react
+
+Implementación de los algoritmos FFT (Fast Fourier Transform) e IFFT (Inverse Fourier Transform) para señales discretas.
 ## Modo de uso
 
 En el directorio raiz del proyecto ejecutar:
