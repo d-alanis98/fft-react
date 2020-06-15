@@ -1,5 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+# fft-react
 ## Modo de uso
 
 En el directorio raiz del proyecto ejecutar:
