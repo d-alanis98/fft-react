@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PresentationPage from './Components/PresentationPage/PresentationPage';
 import ConvolutionResult from './Components/ConvolutionResult/ConvolutionResult';
-import FunctionInputContainer from './Components/FunctionInput/FunctionInputContainer';
+import InputSequenceContainer from './Components/InputSequence/InputSequenceContainer';
 import FunctionPreviewContainer from './Components/FunctionPreview/FunctionPreviewContainer';
 
 const Routes = () => {
@@ -26,7 +26,7 @@ const Routes = () => {
                 exact
                 strict
             >
-                <FunctionInputContainer />
+                <InputSequenceContainer />
             </Route>
             <Route
                 path = '/preview'

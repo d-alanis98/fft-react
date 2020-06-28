@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import FunctionsContext from '../FunctionsContext';
+import SequenceContext from '../SequenceContext';
 
 const withContextProvider = WrappedComponent => {
     const WithContextProvider = props => {
-        const functions = useState()
+        const sequence = useState()
 
         return(
-            <FunctionsContext.Provider value = { functions }>
+            <SequenceContext.Provider value = { sequence }>
                 <WrappedComponent
                     { ...props }
                 />
-            </FunctionsContext.Provider>
+            </SequenceContext.Provider>
         )
     }
     return WithContextProvider;

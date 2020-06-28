@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 //Context
-import FunctionsContext from '../FunctionsContext';
+import SequenceContext from '../SequenceContext';
 //HOC
 import withAlert from '../../../Components/Alerts/HOC/withAlert';
 
@@ -12,35 +12,40 @@ const withContextConsumer = WrappedComponent => {
         //State
         const [showDefaultAlert, setShowDefaultAlert] = useState(true);
         //Context
-        let [functions, setFunctions] = useContext(FunctionsContext)
+        let [sequence, setSequence] = useContext(SequenceContext)
         
         //PROPS
         let { location, history, setAlert } = props;
 
         useEffect(() => {
-            if(functionsNotDefined()){
+            if(sequenceNotDefined()){
                 showDefaultAlert && setAlert({
                     type: 'danger',
                     message: 'No se han definido las funciones'
                 });
                 history.push('/start');
             }
-        }, [functions])
+        }, [sequence])
 
-        const functionsNotDefined = () => location.pathname !== '/start' && !functions;
+        const sequenceNotDefined = () => location.pathname !== '/start' && !sequence;
 
-        if(functionsNotDefined())
+        if(sequenceNotDefined())
             return null;
 
         return <WrappedComponent
-                    functions = { functions }
+                    sequence = { sequence }
                     setAlert = { setAlert }
-                    setFunctions = { setFunctions }
+                    setSequence = { setSequence }
                     showDefaultAlert = { setShowDefaultAlert }
                     { ...props }
                 />
     }
-    return withRouter(withAlert(WithContextConsumer));
+    //Decoramos con HOC de alertas
+    let WithAlerts = withAlert(WithContextConsumer);
+    //Decoramos con el HOC de router
+    let WithRouter = withRouter(WithAlerts); 
+    //Retornamos el componente decorado
+    return WithRouter;
 }
 
 export default withContextConsumer;

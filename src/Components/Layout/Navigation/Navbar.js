@@ -5,7 +5,7 @@ import './Navbar.css';
 
 const Navbar = () => (
     <nav className='navbar navbar-expand-lg sticky-top navbar-light bg-transparent'>
-        <Link className='navbar-brand' to='/'>Práctica 2</Link>
+        <Link className='navbar-brand' to='/'>Práctica 3</Link>
         <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation'>
             <span className='navbar-toggler-icon'></span>
         </button>

@@ -10,7 +10,7 @@ body{
 .form-group input{
   background-color: rgba(116, 235, 213, 0.3)!important;
   color: whitesmoke!important;
-  border-color: whitesmoke!important;
+  border-color: rgba(116, 235, 255, 0.8)!important;;
 }
 
 .form-group select{

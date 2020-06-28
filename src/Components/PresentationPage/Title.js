@@ -16,7 +16,7 @@ const Title = () => (
         </div>
         <hr/>
         <div className='my-4'>
-            <h4>Práctica 2: Algoritmos de convolución de secuencias</h4>
+            <h4>Práctica 3: FFT e IFFT de secuencias</h4>
             <img src='https://img.pngio.com/matching-algorithm-png-skratch-algorithm-png-512_512.png' height='100px' width='100px' />
         </div>
     </Fragment>

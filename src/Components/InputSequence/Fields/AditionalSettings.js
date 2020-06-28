@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 //Componentes
-import FunctionInputField from './FunctionInputField';
+import FunctionInputField from './InputSequenceField';
 
 
 const AditionalSettings = ({ originFieldName, periodicFieldName, onChange }) => {

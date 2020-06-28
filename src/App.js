@@ -4,7 +4,7 @@ import Alert from './Components/Alerts/Alert';
 import Routes from './Routes';
 import Navbar from './Components/Layout/Navigation/Navbar';
 //HOCS
-import withContextProvider from './Context/InputFunction/HOC/withContextProvider';
+import withContextProvider from './Context/InputSequence/HOC/withContextProvider';
 import withAlertProvider from './Components/Alerts/HOC/withAlertProvider';
 //Estilos
 import './App.css';

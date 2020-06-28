@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import FunctionPreview from './FunctionPreview';
 //HOC
 import withConvolution from '../../Context/Convolution/HOC/withConvolution';
-import withContextConsumer from '../../Context/InputFunction/HOC/withContextConsumer';
+import withContextConsumer from '../../Context/InputSequence/HOC/withContextConsumer';
 //Clases
 import ConvolutionFactory from '../../Classes/Convolution/ConvolutionFactory';
 
