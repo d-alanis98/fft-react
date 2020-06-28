@@ -1,48 +1,51 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 //Componentes
 import FunctionPreview from './FunctionPreview';
 //HOC
-import withConvolution from '../../Context/Convolution/HOC/withConvolution';
+import withResult from '../../Context/Result/HOC/withResult';
 import withContextConsumer from '../../Context/InputSequence/HOC/withContextConsumer';
 //Clases
-import ConvolutionFactory from '../../Classes/Convolution/ConvolutionFactory';
+import AlgorithmFactory from '../../Classes/FFT/AlgorithmFactory';
 
 
 
-const FunctionPreviewContainer = ({ functions, history, convolutionResult, setAlert, setFunctions, setConvolutionResult, showDefaultAlert }) => {
-    const [convolutionAlgorithmType, setConvolutionAlgorithm] = useState(ConvolutionFactory.BASIC);
+
+const FunctionPreviewContainer = ({ result, history, operation, setResult, algorithmInstance }) => {
     const [redirect, setRedirect] = useState(false);
+    const [realSequence, setRealSequence] = useState([]);
 
-    const clearFunctions = event => {
-        setFunctions(null);
-        showDefaultAlert(false);
-        setAlert({
-            type: 'warning',
-            message: 'Se eliminaron las funciones introducidas, vuelva a ingresarlas'
-        })
-    }
+    useEffect(() => {
+        if(result.resultSequence.length > 0 && redirect){
+            redirectToResults();
+        }
+    }, [redirect, result])
 
-    const errorCallback = error => {
-        setRedirect(false);
-        setAlert({
-            type: 'danger',
-            message: error
-        })
-    }
+    useEffect(() => {
+        if(algorithmInstance){
+            setRealSequence(getRealSequence());
+        }
+    }, [algorithmInstance]);
 
     const handleSubmit = event => {
         setRedirect(true);
-        let convolutionFactory = new ConvolutionFactory(convolutionAlgorithmType, functions.firstFunction, functions.secondFunction)
-        let convolutionAlgorithm = convolutionFactory.create()
-        let convolutionResult = convolutionAlgorithm.calculate(errorCallback)
-        setConvolutionResult(convolutionResult);
+        let result = algorithmInstance.calculate();
+        console.log({ result })
+        setResult({
+            operation: operation === AlgorithmFactory.FFT ? AlgorithmFactory.IFFT : AlgorithmFactory.FFT,
+            inputSequence: algorithmInstance.inputSamples,
+            resultSequence: result
+        });
     }
 
-    useEffect(() => {
-        if(convolutionResult.sequence.length > 0 && redirect){
-            redirectToResults();
-        }
-    }, [redirect, convolutionResult])
+    /**
+     * Retorna un array compuesto por la magnitud de cada item del array (que son números complejos)
+     */
+    const getRealSequence = () => {
+        if(operation === AlgorithmFactory.FFT)
+            return algorithmInstance.inputSamples.map(sample => sample.re);
+        else return algorithmInstance.inputSamples.map(sample => sample.abs());
+    }
 
     const redirectToResults = () => {
         history.push('/result');
@@ -50,12 +53,13 @@ const FunctionPreviewContainer = ({ functions, history, convolutionResult, setAl
 
     
     return <FunctionPreview
-                handleSubmit = { handleSubmit }
-                clearFunctions = { clearFunctions }
-                firstFunction = { functions.firstFunction }
-                secondFunction = { functions.secondFunction }
-                setConvolutionAlgorithm = { setConvolutionAlgorithm }
+                sequence = { realSequence }
+                operation = { operation }
+                handleSubmit = { handleSubmit } 
+                complexSequence = { algorithmInstance.inputSamples }
             />
+            
+
 }
 
-export default withContextConsumer(withConvolution(FunctionPreviewContainer));
+export default withContextConsumer(withResult(withRouter(FunctionPreviewContainer)));

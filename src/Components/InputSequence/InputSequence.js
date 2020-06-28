@@ -6,11 +6,15 @@ import InputSequenceField from './Fields/InputSequenceField';
 import AlgorithmFactory from '../../Classes/FFT/AlgorithmFactory';
 
 
-const FunctionInput = ({ handleSubmit, handleOperationChange, handleInputSequenceChange }) => (
+const FunctionInput = ({ sequence, operation, handleSubmit, handleOperationChange, handleInputSequenceChange }) => (
     <div className='container text-center text-main mt-3 py-4'>
         <h3>1. Seleccione el tipo de operación</h3>
         <div className='form-group'>
-            <select className='form-control' onChange={ handleOperationChange }>
+            <select 
+                value = { operation }
+                onChange = { handleOperationChange }
+                className = 'form-control' 
+            >
                 <option value={ AlgorithmFactory.FFT }>FFT</option>
                 <option value={ AlgorithmFactory.IFFT }>IFFT</option>
             </select>
@@ -19,6 +23,7 @@ const FunctionInput = ({ handleSubmit, handleOperationChange, handleInputSequenc
         <InputSequenceField
             name = 'firstFunction'
             label = 'Secuencia: '
+            value = { sequence }
             onChange = { handleInputSequenceChange }
             placeholder = 'Introducir los numeros separados por comas'
         />

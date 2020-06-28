@@ -3,7 +3,7 @@ import { Chart as ChartJS } from 'chart.js';
 //Estilos
 import './Chart.css';
 
-const Chart = ({ id, title, label, color, origin, type, sequence }) => {
+const Chart = ({ id, title, label, color, origin, type, sequence, lineTension }) => {
     //Constantes
     const DEFAULT_ID     = 'test';
     const DEFAULT_TYPE   = 'bar';
@@ -17,6 +17,7 @@ const Chart = ({ id, title, label, color, origin, type, sequence }) => {
     useEffect(() => {
         const canvasContext = chartCanvas.current.getContext('2d');
         let progress = {}
+        console.log({ graphType: type})
         new ChartJS(canvasContext, {
             type: type || DEFAULT_TYPE,
             data: {
@@ -26,6 +27,7 @@ const Chart = ({ id, title, label, color, origin, type, sequence }) => {
                         label: label || DEFAULT_LABEL,
                         data: sequence,
                         borderWidth: 2,
+                        lineTension: lineTension,
                         borderColor: color ? `rgba(${color}, 1)` : DEFAULT_COLOR,
                         backgroundColor: color ? `rgba(${color}, 0.4)` : DEFAULT_COLOR,
                         
@@ -54,10 +56,11 @@ const Chart = ({ id, title, label, color, origin, type, sequence }) => {
             },
 
         });
-    }, []);
+    }, [sequence]);
 
     const calculateLabels = () => {
         let labels = new Array(sequence.length);
+        console.log({ labels })
         return Array.from(labels).map((emptyLabel, index) => index - origin)
     }
 

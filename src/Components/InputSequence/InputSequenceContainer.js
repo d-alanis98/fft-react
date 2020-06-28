@@ -5,27 +5,39 @@ import InputSequence from './InputSequence';
 //HOC
 import withContextConsumer from '../../Context/InputSequence/HOC/withContextConsumer';
 //Clases
-import InputFunction from '../../Classes/InputFunction';
 import AlgorithmFactory from '../../Classes/FFT/AlgorithmFactory';
 
-const FunctionInputContainer = ({ history, alert, setAlert, setSequence }) => {
+const FunctionInputContainer = ({ history, alert, sequence, operation: sequenceOperation, setAlert, setSequence }) => {
+    //Constantes
+    const SEQUENCE_LENGTH = 'La secuencia debe ser de tamaño 2^n con n > 0'
+    const SEQUENCE_UNDEFINED = 'Se debe proporcionar la secuencia';
     //Hooks
-    const [operation, setOperation] = useState(AlgorithmFactory.FFT);
+    const [operation, setOperation] = useState();
     const [inputSequence, setInputSequence] = useState();
 
     //Efectos
     useEffect(() => {
-        !alert.type && setAlert({
-            type: 'info',
-            message: 'Si va a definir secuencias periódicas, solo escriba la parte correspondiente a un periodo que incluya al origen',
-            duration: 5000
-        })
+        //Se recuperan los valores establecidos en el contexto
+        console.log({ sequence, sequenceOperation })
+        setOperation(sequenceOperation);
+        setInputSequence(sequence);
     }, [])
 
-    const saveSequence = () => {
-        setSequence(inputSequence);
+    const saveParameters = algorithmInstance => {
+        setSequence({
+            sequence: inputSequence,
+            operation: operation,
+            algorithmInstance: algorithmInstance
+        });
     }
 
+    const notifySequenceError = errorMessage => {
+        setAlert({
+            type: 'danger',
+            message: errorMessage,
+            duration: 5000
+        });
+    }
 
     //HANDLERS 
 
@@ -42,27 +54,30 @@ const FunctionInputContainer = ({ history, alert, setAlert, setSequence }) => {
     const handleSubmit = event => {
         event.preventDefault();
         if(!inputSequence){
-            setAlert({
-                type: 'danger',
-                message: 'Se debe proprcionar la secuencia',
-                duration: 4000
-            })
+            notifySequenceError(SEQUENCE_UNDEFINED);
             return;
         }
-        let sequenceInput = new AlgorithmFactory(inputSequence);
-        let basic = sequenceInput.create(operation);
-        basic.calculate();
-        console.log(operation)
-        saveSequence();
+        let algorithmFactory = new AlgorithmFactory(inputSequence);
+        let algorithmToUse = algorithmFactory.create(operation);
+        //Si obtenemos una instancia nula esto se debe a que la entrada no satisface los requerimentos (ser de tamaño 2^n)
+        if(!algorithmToUse){
+            notifySequenceError(SEQUENCE_LENGTH);
+            return;
+        }
+        saveParameters(algorithmToUse);
+        redirectToPreview();
     }
 
-    const handleRedirect = event => {
+    const redirectToPreview = () => {
         history.push('/preview');
     }
 
 
     return <InputSequence
+                sequence = { inputSequence }
+                operation = { operation }
                 handleSubmit = { handleSubmit }
+                algorithmInstance = { sequence.algorithmInstance }
                 handleOperationChange = { handleOperationChange }
                 handleInputSequenceChange = { handleInputSequenceChange }
             />

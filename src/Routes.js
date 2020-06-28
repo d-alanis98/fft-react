@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PresentationPage from './Components/PresentationPage/PresentationPage';
-import ConvolutionResult from './Components/ConvolutionResult/ConvolutionResult';
+import Result from './Components/Result/Result';
 import InputSequenceContainer from './Components/InputSequence/InputSequenceContainer';
 import FunctionPreviewContainer from './Components/FunctionPreview/FunctionPreviewContainer';
 
@@ -40,7 +40,7 @@ const Routes = () => {
                 exact
                 strict
             >
-                <ConvolutionResult />
+                <Result />
             </Route>
         </Switch>
     )

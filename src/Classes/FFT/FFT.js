@@ -6,9 +6,13 @@ export default class FFT extends BaseAlgorithm{
         super(inputSamples);
     }
 
+    getNormalizedResult(partialResult){
+        return partialResult.map(item => item.round(3));
+    }
+
     calculate(){
-        let result = this.algorithm(this.inputSamples);
-        console.log(result.toString())
+        let partialResult = this.algorithm(this.inputSamples);
+        let result = this.getNormalizedResult(partialResult);
         return result;
     }
 }

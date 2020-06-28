@@ -27,16 +27,18 @@ const withContextConsumer = WrappedComponent => {
             }
         }, [sequence])
 
-        const sequenceNotDefined = () => location.pathname !== '/start' && !sequence;
+        const sequenceNotDefined = () => location.pathname !== '/start' && !sequence.sequence;
 
         if(sequenceNotDefined())
             return null;
 
         return <WrappedComponent
-                    sequence = { sequence }
+                    sequence = { sequence.sequence }
                     setAlert = { setAlert }
+                    operation = { sequence.operation }
                     setSequence = { setSequence }
                     showDefaultAlert = { setShowDefaultAlert }
+                    algorithmInstance = { sequence.algorithmInstance }
                     { ...props }
                 />
     }
