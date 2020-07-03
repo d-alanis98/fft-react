@@ -14,6 +14,11 @@ let members = {
         name: 'Vladimir Azpetia Rodríguez',
         avatar: 'https://avatars0.githubusercontent.com/u/24665258?s=460&u=823e5aea71fa80796a2da5a0aebd8fb7fa2818c5&v=4',
         github: 'https://github.com/VladimirAh'
+    },
+    daniel:{
+        name: 'Luis Daniel martínez Guevara',
+        avatar: 'https://avatars3.githubusercontent.com/u/31934801?s=460&v=4',
+        github: 'https://github.com/KompuDan'
     }
 }
 export default members;
