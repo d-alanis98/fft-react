@@ -16,6 +16,10 @@ const Members = () => (
                 memberId = 'vladimir'
                 className = 'ml-3'
             />
+            <Member
+                memberId = 'daniel'
+                className = 'ml-3'
+            />
         </div>
     </div>
 );
